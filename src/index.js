@@ -25,8 +25,16 @@ app.use('/graphql', graphQLHttp({
         }
     `),
     rootValue: {
+        events: () => {
+            return ['ronaldo', 'Lemos'];
+        },
+        createEvent: (args) => {
+            const { name } = args;
 
-    }
+            return 'Your name: ' + name;
+        }
+    },
+    graphiql: true
 }));
 
 app.listen(3366);
