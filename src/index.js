@@ -9,14 +9,33 @@ const app = express();
 app.use(bodyParser.json());
 app.use(routes);
 
+const events = [
+
+];
+
 app.use('/graphql', graphQLHttp({
     schema: buildSchema(`
+        type Event {
+            _id: ID!,
+            title: String!,
+            description: String!,
+            price: Float!,
+            date: String!
+        }
+
+        input EventInput {
+            title: String!,
+            description: String!,
+            price: Float!,
+            date: String!
+        }
+
         type RootQuery {
-            events: [String!]!
+            events: [Event!]!
         }
 
         type RootMutation {
-            createEvent(name: String): String
+            createEvent(pEvent: EventInput): Event
         }
 
         schema {
@@ -26,12 +45,20 @@ app.use('/graphql', graphQLHttp({
     `),
     rootValue: {
         events: () => {
-            return ['ronaldo', 'Lemos'];
+            return events;
         },
         createEvent: (args) => {
-            const { name } = args;
+            const event = {
+                _id: Math.random().toString(),
+                title: args.pEvent.title,
+                description: args.pEvent.description,
+                price: +args.pEvent.price,
+                date:new Date().toISOString()
+            }
 
-            return 'Your name: ' + name;
+            events.push(event);
+
+            return event;
         }
     },
     graphiql: true
