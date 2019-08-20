@@ -8,6 +8,7 @@ type Booking {
     createdAt: String!,
     updatedAt: String!
 }
+
 type Event {
     _id: ID!,
     title: String!,
@@ -25,6 +26,12 @@ type User {
     createdEvents: [Event!]
 }
 
+type AuthData {
+    userId: ID!,
+    token: String!,
+    tokenExpiration: Int!
+}
+
 input UserInput {
     email: String!,
     password: String!,
@@ -40,8 +47,9 @@ input EventInput {
 
 type RootQuery {
     events: [Event!]!,
-    bookings: [Booking!]!
-    users: [User!]!
+    bookings: [Booking!]!,
+    users: [User!]!,
+    login(email: String!, password: String!): AuthData!
 }
 
 type RootMutation {
