@@ -31,14 +31,21 @@
     margin:0 1rem;
 }
 
-.main-navigation_items ul li a{
+.main-navigation_items ul li a,
+.main-navigation_items ul li button{
     text-decoration: none;
     color: #000;
+    border:none;
+    font:inherit;
+    background:transparent;
+    cursor: pointer;
 }
 
 .main-navigation_items ul li a:hover, 
-main-navigation_items ul li a:active,
-main-navigation_items ul li a.active{
+.main-navigation_items ul li a:active,
+.main-navigation_items ul li a.active,
+.main-navigation_items ul li button:hover, 
+.main-navigation_items ul li button:active{
     color: #fff;
 }
 
