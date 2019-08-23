@@ -34,12 +34,11 @@ class App extends Component {
             <main className="main-content">
               <Switch>
                 {!this.state.token && <Redirect from="/" to="/user" exact />}
-                {!this.state.token && <Redirect from="/events" to="/user" exact />}
                 {!this.state.token && <Redirect from="/bookings" to="/user" exact />}
                 {this.state.token && <Redirect from="/" to="/events" exact />}
                 {this.state.token && <Redirect from="/user" to="/events" exact />}
                 {!this.state.token && <Route path="/user" component={UserPage} />}
-                {this.state.token && <Route path="/events" component={EventPage} />}
+                <Route path="/events" component={EventPage} />
                 {this.state.token && <Route path="/bookings" component={BookingPage} />}
               </Switch>
             </main>
