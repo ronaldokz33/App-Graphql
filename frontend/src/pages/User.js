@@ -40,27 +40,36 @@ class UserPage extends Component {
 
         let requestBody = {
             query: `
-                query {
-                    login(email: "${email}", password: "${password}") {
+                query Login($email: String!, $password: String!) {
+                    login(email: $email, password: $password) {
                         userId,
                         token,
                         tokenExpiration
                     }
                 }
-            `
+            `,
+            variables: {
+                email: email,
+                password: password
+            }
         }
 
         if (!this.state.isLogin) {
             requestBody = {
                 query: `
-                mutation {
-                    createUser(pUser: {email: "${email}", password: "${password}", name: "${name}"}) {
-                        _id,
-                        email,
-                        name
+                    mutation CreateUser($email: String!, $password: String!, $name: String!){
+                        createUser(pUser: {email: $email, password: $password, name: $name}) {
+                            _id,
+                            email,
+                            name
+                        }
                     }
+                `,
+                variables: {
+                    email: email,
+                    password: password,
+                    name: name
                 }
-            `
             };
         }
 
